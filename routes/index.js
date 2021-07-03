@@ -69,10 +69,6 @@ function caller(val,content,unit){
         recipients: [
           {
             recipient_id: 1,
-            dest_addr: "255625547970",
-         },
-          {
-            recipient_id: 2,
             dest_addr: "255759499365",
           },
         ],
