@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const Gas = mongoose.model("GAS")
-let arr = null
 
 exports.leta = (req,res)=>{
     const {gas,smoke,flame} = req.params
@@ -15,6 +14,7 @@ exports.leta = (req,res)=>{
     gas_db.time = currentTime;
     gas_db.save((err,docs)=>{
             if(!err){
+                send_sms()
                 res.send("SUCCESS")
             }
     })
@@ -41,15 +41,16 @@ const source_addr ="INFO";
 function send_sms() {
     Gas.find((err,docs)=>{
         if (!err){
-            docs.map((doc)=>{
-                if (doc.gas <= 45){
-                    caller(doc.gas,"gas","lpg")
-                }else if (doc.smoke > 2000){
-                    caller(doc.smoke,"smoke"," ")
-                }else if (doc.flame > 2000){
-                    caller(doc.flame,"flame"," ")
-                }
-            })
+            if (docs[docs.length-1].gas > 2000){
+              caller(docs[docs.length-1].gas,"gas","ppm")
+            }
+            if (docs[docs.length-1].smoke > 2000){
+              caller(docs[docs.length-1].smoke,"smoke","ppm")
+            }
+            if (docs[docs.length-1].flame == 1){
+              caller(docs[docs.length-1].flame,"flame"," ")
+            }
+           
         }
     })
   
