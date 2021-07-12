@@ -42,13 +42,13 @@ function send_sms() {
     Gas.find((err,docs)=>{
         if (!err){
             if (docs[docs.length-1].gas > 2000){
-              caller(docs[docs.length-1].gas,"gas","ppm")
+              caller(docs[docs.length-1].gas,"LPG GAS IS LEAKING,ATTENTIONIS REQUIRED","PPM")
             }
             if (docs[docs.length-1].smoke > 2000){
-              caller(docs[docs.length-1].smoke,"smoke","ppm")
+              caller(docs[docs.length-1].smoke,"SMOKE IS DETECTED,ATTENTION IS REQUIRED","PPM")
             }
             if (docs[docs.length-1].flame == 1){
-              caller(docs[docs.length-1].flame,"flame"," ")
+              caller(docs[docs.length-1].flame,"FLAME IS DETECTED,ATTENTION IS REQUIRED"," ")
             }
            
         }
@@ -65,11 +65,11 @@ function caller(val,content,unit){
         source_addr: source_addr,
         schedule_time: "",
         encoding: 0,
-        message: `The ${content} is ${val} ${unit} `,
+        message: `${val} ${unit} ${content}  `,
         recipients: [
           {
             recipient_id: 1,
-            dest_addr: "255759499365",
+            dest_addr: "255652987608",
           },
         ],
       },
